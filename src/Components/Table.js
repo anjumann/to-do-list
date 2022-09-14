@@ -40,7 +40,7 @@ const Table = ({ data, handleDelete, handleEdit }) => {
                                             </button>
                                         </div>
                                     </th>
-                                    {/* {showModal && <Modal id={item.id} />} */}
+                                    {showModal? (<Modal id={item.id} />):''}
                                 </tr>
                             )
                         })}
