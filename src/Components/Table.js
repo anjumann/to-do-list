@@ -1,17 +1,10 @@
 import React, { useState } from 'react'
 import { MdDeleteOutline } from 'react-icons/md'
 import { TiEdit } from 'react-icons/ti'
-import Modal from './Modal'
-import { modalsState } from '../atom';
-import { useRecoilState } from 'recoil';
+
 
 
 const Table = ({ data, handleDelete, handleEdit }) => {
-
-
-    const [showModal, setShowModal] = useRecoilState(modalsState)
-
-
     return (
         <>
 
@@ -35,12 +28,12 @@ const Table = ({ data, handleDelete, handleEdit }) => {
                                             <button onClick={() => { handleDelete(item.id) }} >
                                                 <MdDeleteOutline className='inline mx-3 text-red-700' />
                                             </button>
-                                            <button onClick={ ()=> {setShowModal(true)}} >
+                                            <button >
                                                 <TiEdit className='inline mx-3 text-green-700' />
                                             </button>
                                         </div>
                                     </th>
-                                    {showModal? (<Modal id={item.id} />):''}
+                                    
                                 </tr>
                             )
                         })}

@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import Table from '../Components/Table'
+import { Delete, Warn, Success } from '../Components/Toast'
 
 const Home = () => {
 
 
   const [data, setData] = useState([])
   const [task, setTask] = useState('')
-
+  const [ToastSuccess, setToastSuccess] = useState(false)
+  const [ToastDelete, setToastDelete] = useState(false)
+  const [ToastWarn, setToastWarn] = useState(false)
 
   const handleEdit = (id) => {
     console.log(id)
@@ -16,13 +19,34 @@ const Home = () => {
     const del = data.filter((to) => to.id !== id);
     setData([...del])
     console.log('del', data);
+    console.log('before',ToastDelete);
+    setToastDelete(true)
+    (setTimeout(() => {
+      console.log('after',ToastDelete);
+      setToastDelete(false)
+    }, 3000))
+
   }
 
   const handleSubmit = () => {
     // e.preventDefault()
-    setData([{ id: `${task}-${Date.now()}`, task }, ...data])
-    setTask('')
-    console.log(data);
+    if (task === '') {
+      console.log('Empty task');
+      setToastWarn(true);
+      (setTimeout(() => {
+        setToastWarn(false)
+      },3000))
+    }
+    else {
+      setData([{ id: `${task}-${Date.now()}`, task }, ...data])
+      setTask('')
+      console.log(data);
+      setToastSuccess(true)
+      (setTimeout(() => {
+        console.log('after',ToastDelete);
+        setToastSuccess(false)
+      }, 3000))
+    }
   }
 
   return (
@@ -37,11 +61,12 @@ const Home = () => {
               onChange={(e) => setTask(e.target.value)}
               value={task}
               name="task"
+              autocomplete="off"
               onKeyPress={event => {
                 if (event.key === 'Enter') {
                   handleSubmit()
                   console.log('Enter key pressed');
-                } 
+                }
               }}
             />
 
@@ -56,7 +81,9 @@ const Home = () => {
         </div>)
         }
 
-
+        <Success hidden={ToastSuccess} />
+        <Delete hidden={ToastDelete} />
+        <Warn hidden={ToastWarn} />
       </div>
     </>
   )

@@ -1,11 +1,10 @@
 import React from 'react'
-import { useRecoilState } from 'recoil';
-import { modalsState } from '../atom';
+
 
 
 const Modal = ({ handleEdit, id }) => {
 
-    const [showModal, setShowModal] = useRecoilState(modalsState)
+    
 
     return (
         <>
@@ -19,7 +18,6 @@ const Modal = ({ handleEdit, id }) => {
                     <div className="modal-action">
                         <label className="btn btn-glass"
                             onClick={() => {
-                                setShowModal(false)
                                 handleEdit(id)
                             }}
                         >Edit</label>
