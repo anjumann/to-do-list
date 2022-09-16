@@ -51,7 +51,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="min-h-screen flex flex-col justify-start items-center">
+      <div className="min-h-[80vh] flex flex-col justify-start items-center">
         <h1 className="text-4xl text-center text-base-100 mt-6 mb-4 ">To do List</h1>
 
         <div className="card card-compact  mx-2 md:w-96  bg-gradient-to-br from-slate-900/50 shadow-2xl py-10 px-20">

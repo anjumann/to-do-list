@@ -13,7 +13,7 @@ const SignIn = () => {
 
   return (
     <>
-      <div className="card card-compact w-full mx-2 md:w-96 backdrop-blur-xl bg-gradient-to-br from-slate-900/50 shadow-2xl py-10 px-20">
+      <div className="card card-compact w-full mx-2 md:w-96  bg-gradient-to-br from-slate-900/50 shadow-2xl py-10 px-20">
         <div className="text-base-200 text-center font-mono font-bold text-2xl ">Sign In</div>
         <div className="form-control w-full max-w-xs">
           <label className="label">

@@ -2,6 +2,11 @@ import React, { useState } from 'react'
 import { MdDeleteOutline } from 'react-icons/md'
 import { TiEdit } from 'react-icons/ti'
 
+const styles = {
+    'text-shadow': 'rgb(255 215 77 / 60%) -1px -1px 6px, rgb(124 127 255 / 60%) 1px 1px 6px',
+    'overflow-wrap': 'break-word',
+}
+
 
 
 const Table = ({ data, handleDelete, handleEdit }) => {
@@ -22,18 +27,18 @@ const Table = ({ data, handleDelete, handleEdit }) => {
                         {data.map((item) => {
                             return (
                                 <tr key={item.id} className=' w-9/12 ' >
-                                    <th className='break-all  px-6 ' >{item.task}  </th>
+                                    <th className='break-all text-2xl px-6 drop-shadow-2xl'>{item.task}   </th>
                                     <th className='break-all ' >
                                         <div className='flex flex-row gap-2' >
                                             <button onClick={() => { handleDelete(item.id) }} >
-                                                <MdDeleteOutline className='inline mx-3 text-red-700' />
+                                                <MdDeleteOutline className='inline text-2xl mx-3  text-red-700' />
                                             </button>
-                                            <button >
+                                            {/* <button >
                                                 <TiEdit className='inline mx-3 text-green-700' />
-                                            </button>
+                                            </button> */}
                                         </div>
                                     </th>
-                                    
+
                                 </tr>
                             )
                         })}

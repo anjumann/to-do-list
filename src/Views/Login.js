@@ -3,9 +3,12 @@ import { Outlet } from 'react-router-dom'
 const Login = () => {
   return (
     <>
-      <div className="flex justify-center items-center min-h-screen"  >
-        <div className='hidden md:block w-5/12' />
+      <div className="flex justify-center items-center min-h-[90vh]"  >
+        <div className='hidden md:block w-1/12' />
         <Outlet />
+        <div className='hidden md:block w-1/12' >
+          
+        </div>
       </div>
     </>
   )
