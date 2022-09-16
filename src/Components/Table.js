@@ -1,11 +1,5 @@
 import React, { useState } from 'react'
 import { MdDeleteOutline } from 'react-icons/md'
-import { TiEdit } from 'react-icons/ti'
-
-const styles = {
-    'text-shadow': 'rgb(255 215 77 / 60%) -1px -1px 6px, rgb(124 127 255 / 60%) 1px 1px 6px',
-    'overflow-wrap': 'break-word',
-}
 
 
 

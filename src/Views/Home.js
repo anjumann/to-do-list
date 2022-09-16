@@ -61,7 +61,7 @@ const Home = () => {
               onChange={(e) => setTask(e.target.value)}
               value={task}
               name="task"
-              autocomplete="off"
+              autoComplete="off"
               onKeyPress={event => {
                 if (event.key === 'Enter') {
                   handleSubmit()

@@ -1,13 +1,59 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
+import { auth, provider } from '../firebase'
+import { signInWithEmailAndPassword } from "firebase/auth";
+
 
 const SignIn = () => {
 
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("Error !!!");
+  const [error, setError] = useState(false)
+  const { dispatch } = useContext(AuthContext)
   const navigate = useNavigate()
+
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    navigate('/')
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        dispatch({ type: "SIGNIN", payload: user })
+        // console.log(user);
+        // alert("login successful");
+        setError(false);
+      })
+      .catch((err) => {
+        const errorCode = err.code;
+        const errorMessage = err.message;
+        console.log(errorCode);
+
+        setError(true);
+        // console.log(errorMessage);
+        if (errorCode === "auth/user-not-found") {
+          setErrorMessage("user not found")
+        }
+        if (errorCode === "auth/invalid-email") {
+          setErrorMessage("Invalid Email")
+        }
+
+        if (errorCode === "auth/wrong-password") {
+          setErrorMessage("Wrong password")
+        }
+        if (errorCode === "auth/internal-error") {
+          setErrorMessage("Enter password")
+        }
+
+        setLoading(false);
+      });
+
+
+
   }
 
 
@@ -19,11 +65,15 @@ const SignIn = () => {
           <label className="label">
             <span className="label-text text-base-100  ">Enter Email</span>
           </label>
-          <input type="text" placeholder="Email" className="input  w-full max-w-xs input-ghost" />
+          <input type="text" placeholder="Email" className="input  w-full max-w-xs input-ghost"
+          value={email} onChange = {(e) => {setEmail(e.target.value)}}
+          />
           <label className="label">
             <span className="label-text text-base-100  ">Enter Password</span>
           </label>
-          <input type="password" placeholder="Password" className="input  w-full max-w-xs input-ghost " />
+          <input type="password" placeholder="Password" className="input  w-full max-w-xs input-ghost " 
+          value={password} onChange = {(e) => {setPassword(e.target.value)}}
+          />
           <button className="btn w-full mt-6 glass"
             onClick={handleSubmit}
           >Sign In</button>
