@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        og: ['Kanit', 'sans-serif'],
+        og: ['JetBrains Mono','Kanit', 'sans-serif'],
       },
     },
   },

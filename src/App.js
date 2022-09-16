@@ -12,7 +12,13 @@ import Navbar from "./Components/Navbar";
 function App() {
 
   const { currentUser } = useContext(AuthContext)
-  // console.log(currentUser);
+  // console.log(currentUser.displayName);
+  // if (currentUser) {
+  //   const userName = currentUser.displayName ? currentUser.displayName : 'Buddy'
+  // }
+
+
+
   const RequireAuth = ({ children }) => {
     return (currentUser ? children : <Navigate to="/login/signin" />)
   }

@@ -7,7 +7,7 @@ import {auth} from '../firebase'
 const Navbar = () => {
 
     const {dispatch, currentUser } = useContext(AuthContext)
-    console.log(currentUser)
+    // console.log(currentUser)
 
     const handleLogout = () => {
         signOut(auth).then(() => {

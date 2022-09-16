@@ -3,7 +3,7 @@ import { MdDeleteOutline } from 'react-icons/md'
 
 
 
-const Table = ({ data, handleDelete, handleEdit }) => {
+const Table = ({ data, handleDelete}) => {
     return (
         <>
 
@@ -24,7 +24,9 @@ const Table = ({ data, handleDelete, handleEdit }) => {
                                     <th className='break-all text-2xl px-6 drop-shadow-2xl'>{item.task}   </th>
                                     <th className='break-all ' >
                                         <div className='flex flex-row gap-2' >
-                                            <button onClick={() => { handleDelete(item.id) }} >
+                                            <button onClick={() => { handleDelete(item.id) 
+                                            console.log('current item id', item.id); }} >
+                                                 
                                                 <MdDeleteOutline className='inline text-2xl mx-3  text-red-700' />
                                             </button>
                                             {/* <button >

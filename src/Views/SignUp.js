@@ -2,7 +2,10 @@ import React, { useState, useContext } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { AuthContext } from '../context/AuthContext'
-import { auth, provider } from '../firebase'
+import { auth, provider, createTodoDoc } from '../firebase'
+import { FcGoogle } from 'react-icons/fc'
+import { Alert } from '../Components/Alert';
+import Loading from '../Components/Loading';
 
 const SignUp = () => {
   const navigate = useNavigate()
@@ -23,10 +26,11 @@ const SignUp = () => {
       .then((userCredential) => {
         setError(false);
         // Signed in 
-
         const user = userCredential.user;
         //   alert("sign up successful")
         dispatch({ type: "SIGNIN", payload: user })
+        console.log('user:', user);
+        createTodoDoc(user.uid)
         setLoading(false);
       })
       .catch((err) => {
@@ -48,6 +52,7 @@ const SignUp = () => {
   }
 
   const handleGoogleAuth = (e) => {
+    setLoading(true);
     e.preventDefault();
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -59,8 +64,10 @@ const SignUp = () => {
         const user = result.user;
         dispatch({ type: "SIGNIN", payload: user })
         console.log(user);
+        setLoading(false);
       }).catch((error) => {
         console.log(error);
+        setLoading(false);
         // Handle Errors here.
       });
   }
@@ -71,7 +78,9 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="card card-compact w-full mx-2 md:w-96  bg-gradient-to-br from-slate-900/50 shadow-2xl py-10 px-20">
+      <div className="card card-compact w-full mx-2 md:w-4/12  bg-gradient-to-br from-slate-900/50 shadow-2xl py-10 px-20">
+        <div className='btn glass ' onClick={handleGoogleAuth} > <FcGoogle className='inline text-xl drop-shadow-lg mr-3' /> Login via Google </div>
+        <div className='text-base-100 text-center my-3' >---------Or--------- </div>
         <div className="text-base-200 text-center font-mono font-bold text-2xl ">Sign Up</div>
         <div className="form-control w-full max-w-xs">
           <label className="label">
@@ -85,10 +94,16 @@ const SignUp = () => {
           </label>
           <input type="password" placeholder="Password" className="input  w-full max-w-xs input-ghost "
             value={password} onChange={(e) => { setPassword(e.target.value) }}
+            onKeyPress={event => {
+              if (event.key === 'Enter') {
+                console.log('Enter key pressed');
+                handleSubmit(event);
+              }
+            }}
           />
           <button className="btn w-full mt-6 glass"
             onClick={handleSubmit}
-          >Sign Up</button>
+          >{loading ? (<Loading />) : 'Sign Up'}</button>
           <label className="label">
             <Link to='/login/signin' >
               <span className="label-text-alt hover:cursor-pointer text-base-200 underline  underline-offset-2">Already user?</span>
@@ -96,7 +111,8 @@ const SignUp = () => {
             {/* <span className="label-text-alt">Alt label</span> */}
           </label>
         </div>
-        <button className='btn w-full mt-6 glass' onClick={handleGoogleAuth} >Google login</button>
+        {error && <Alert className='inline' errorMessage={errorMessage} />}
+
       </div>
     </>
   )
